@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+nav a {
+    margin: 10px;
+    text-decoration: none;
+    color: blue;
+}
+
+form input {
+    margin: 5px;
+    padding: 8px;
+}
+
+button {
+    padding: 10px;
+    background-color: green;
+    color: white;
+    border: none;
+}

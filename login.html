@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Dry Fruit Shop</title>
+    <link rel="stylesheet" href="css/style1.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fffdd0; /* Light cream background */
+            color: #333;
+        }
+
+        header {
+            background-color: #d2691e; /* Warm brownish-orange */
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        main h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #d2691e;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        input:focus {
+            border-color: #d2691e;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #d2691e; /* Warm brownish-orange */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #b35916; /* Slightly darker shade for hover */
+        }
+
+        p {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+
+        p a {
+            color: #d2691e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #d2691e; /* Warm brownish-orange */
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dry Fruit Shop</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="product.html">Products</a>
+            <a href="cart.html">Cart</a>
+            <a href="signup.html">Sign Up</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Login</h2>
+        <form action="authenticate.php" method="POST" onsubmit="return validateLoginForm()">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required placeholder="Enter your username">
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required placeholder="Enter your password">
+            
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="signup.html">Sign up here</a>.</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Dry Fruit Shop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Form validation for login
+        function validateLoginForm() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username.trim() === '') {
+                alert('Please enter your username.');
+                return false;
+            }
+
+            if (password.trim() === '') {
+                alert('Please enter your password.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

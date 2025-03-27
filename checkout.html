@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Dry Fruit Shop</title>
+    <link rel="stylesheet" href="css/style1.css">
+    <style>
+        .checkout-summary {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .checkout-summary th, .checkout-summary td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .checkout-summary th {
+            background-color: #f4f4f4;
+        }
+
+        .checkout-total {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .checkout-actions {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .checkout-actions button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .checkout-actions button:hover {
+            background-color: #0056b3;
+        }
+
+        .empty-checkout {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dry Fruit Shop</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="product.html">Products</a>
+            <a href="cart.html">Cart</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Checkout</h2>
+        <table class="checkout-summary" id="checkout-summary">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="checkout-items">
+                <!-- Checkout items will be dynamically added here -->
+            </tbody>
+        </table>
+
+        <div class="checkout-total" id="checkout-total">
+            <p><strong>Total:</strong> ₹<span id="total-amount">0.00</span></p>
+        </div>
+
+        <div class="checkout-actions">
+            <button onclick="confirmOrder()">Confirm Order</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Dry Fruit Shop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Function to render checkout items
+        function renderCheckout() {
+            const checkoutItems = document.getElementById('checkout-items');
+            const checkoutTotal = document.getElementById('checkout-total');
+            let total = 0;
+
+            checkoutItems.innerHTML = ''; // Clear existing items
+
+            if (cart.length === 0) {
+                checkoutItems.innerHTML = `<tr><td colspan="5" class="empty-checkout">Your cart is empty. Please add items before proceeding to checkout.</td></tr>`;
+                checkoutTotal.style.display = 'none'; // Hide total if cart is empty
+                return;
+            }
+
+            checkoutTotal.style.display = 'block'; // Show total if cart is not empty
+
+            cart.forEach(item => {
+                const itemTotal = item.quantity * item.price;
+                total += itemTotal;
+
+                checkoutItems.innerHTML += `
+                    <tr>
+                        <td><img src="${item.image}" alt="${item.name}" width="50"></td>
+                        <td>${item.name}</td>
+                        <td>₹${item.price.toFixed(2)}</td>
+                        <td>${item.quantity}</td>
+                        <td>₹${itemTotal.toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('total-amount').textContent = total.toFixed(2);
+        }
+
+        // Function to confirm the order
+        function confirmOrder() {
+            if (cart.length === 0) {
+                alert('Your cart is empty. Please add items before confirming your order.');
+                return;
+            }
+
+            // Simulate order confirmation
+            alert('Thank you for your order! Your order has been placed successfully.');
+
+            // Clear the cart and redirect to the home page
+            localStorage.removeItem('cart');
+            window.location.href = 'index.html';
+        }
+
+        // Render the checkout on page load
+        renderCheckout();
+    </script>
+</body>
+</html>

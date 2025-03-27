@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Dry Fruit Shop</title>
+    <link rel="stylesheet" href="css/style1.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fffdd0; /* Light cream background */
+            color: #333;
+        }
+
+        header {
+            background-color: #d2691e; /* Warm brownish-orange */
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            width: 220px;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .product-card h3 {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .product-card p {
+            font-size: 14px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .product-card button {
+            padding: 10px 15px;
+            background-color: #d2691e; /* Warm brownish-orange */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .product-card button:hover {
+            background-color: #b35916; /* Slightly darker shade for hover */
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 10px;
+        }
+
+        .modal-content select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .modal-content button {
+            margin: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #d2691e; /* Warm brownish-orange */
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-card {
+                width: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dry Fruit Shop</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="product.html">Products</a>
+            <a href="cart.html">Cart</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Our Products</h2>
+        <div id="product-list" class="product-grid">
+            <!-- Products will be dynamically added here -->
+        </div>
+    </main>
+
+    <!-- Modal for Product Details -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modal-product-name"></h3>
+            <img id="modal-product-image" src="" alt="" width="150">
+            <p id="modal-product-description"></p>
+            <p><strong>Price:</strong> ₹<span id="modal-product-price"></span></p>
+            <label for="quantity-select">Select Quantity:</label>
+            <select id="quantity-select">
+                <option value="200">200g</option>
+                <option value="250">250g</option>
+                <option value="500">500g</option>
+                <option value="1000">1kg</option>
+                <option value="2000">2kg</option>
+                <option value="3000">3kg</option>
+            </select>
+            <button onclick="addToCart()">Add to Cart</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Dry Fruit Shop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, name: "Walnut", category: "nuts", price: 100, stock: 50, image: "images/wall nut.webp", description: "Rich in Omega-3, helps in brain function and heart health." },
+            { id: 2, name: "Almond", category: "nuts", price: 200, stock: 60, image: "images/almond.webp", description: "Loaded with Vitamin E, great for skin, hair, and energy." },
+            { id: 3, name: "Cashew (Kaju)", category: "nuts", price: 220, stock: 40, image: "images/cashew.webp", description: "Creamy and delicious, a great source of protein and iron." },
+            { id: 4, name: "Pista (Plain)", category: "nuts", price: 210, stock: 50, image: "images/pista plain.webp", description: "Low in calories, high in antioxidants, good for heart health." },
+            { id: 5, name: "Pista (Roasted/Salted)", category: "nuts", price: 230, stock: 30, image: "images/pista plain.webp", description: "Crunchy and salty, a great snack full of nutrition." },
+            { id: 6, name: "Anjeera (Figs)", category: "raisins", price: 180, stock: 25, image: "images/anjeer.webp", description: "High in fiber, helps in digestion and weight loss." },
+            { id: 7, name: "Kishmish (Green)", category: "raisins", price: 140, stock: 45, image: "images/green kishmish.webp", description: "Sweet and nutritious, rich in iron and good for digestion." },
+            { id: 8, name: "Kishmish (Yellow)", category: "raisins", price: 135, stock: 40, image: "images/yellow kishmish.png", description: "Boosts energy, supports healthy skin and hair." },
+            { id: 9, name: "Black Grapes (Raisina)", category: "raisins", price: 150, stock: 35, image: "images/black grapes.webp", description: "Rich in antioxidants, good for blood circulation and heart." },
+            { id: 10, name: "Dates", category: "dates", price: 100, stock: 60, image: "images/dates.webp", description: "Rich in natural sugar and fiber, boosts instant energy." },
+            { id: 11, name: "Dry Dates", category: "dates", price: 120, stock: 50, image: "images/dry-dates.webp", description: "Strengthens bones and improves digestion." },
+            { id: 12, name: "Dry Dates (Black)", category: "dates", price: 130, stock: 40, image: "images/black dry dates.webp", description: "Rich in iron, great for boosting immunity and energy." },
+            { id: 13, name: "Albukara", category: "raisins", price: 120, stock: 30, image: "images/albhukara.webp", description: "Dried apricots packed with Vitamin A, good for eyesight." },
+            { id: 14, name: "Apricots (Kurbani/Jardalu)", category: "raisins", price: 140, stock: 35, image: "images/apricots.jpg", description: "Rich in antioxidants, improves skin and digestion." },
+            { id: 15, name: "Amla (Sweet & Salt)", category: "seeds", price: 90, stock: 40, image: "images/amla.png", description: "Superfood for immunity, digestion, and glowing skin." },
+            { id: 16, name: "Prunes (California)", category: "raisins", price: 180, stock: 25, image: "images/prunes.webp", description: "Great for digestion and bone strength." },
+            { id: 17, name: "Sweet Tamarind", category: "seeds", price: 100, stock: 50, image: "images/sweet tamarind.avif", description: "Rich in Vitamin C, helps in digestion and weight loss." },
+            { id: 18, name: "Chilgoja", category: "seeds", price: 190, stock: 20, image: "images/chilgoja.webp", description: "Pine nuts, good for brain and heart health." },
+            { id: 19, name: "Chiranji (Saarapappu)", category: "seeds", price: 160, stock: 30, image: "images/chiranji.jpg", description: "Used in sweets, rich in vitamins and proteins." },
+            { id: 20, name: "Black Dates", category: "dates", price: 110, stock: 30, image: "images/black dates.webp", description: "Natural sweetener, helps in digestion and energy boost." }
+        ];
+
+        let selectedProduct = null;
+
+        function openModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                selectedProduct = product;
+                document.getElementById('modal-product-name').textContent = product.name;
+                document.getElementById('modal-product-image').src = product.image;
+                document.getElementById('modal-product-image').alt = product.name;
+                document.getElementById('modal-product-description').textContent = product.description;
+                document.getElementById('modal-product-price').textContent = product.price.toFixed(2);
+                document.getElementById('product-modal').style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('product-modal').style.display = 'none';
+            selectedProduct = null;
+        }
+
+        function addToCart() {
+            const quantity = parseInt(document.getElementById('quantity-select').value);
+            if (!selectedProduct) {
+                alert('No product selected.');
+                return;
+            }
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existingProduct = cart.find(item => item.id === selectedProduct.id);
+
+            if (existingProduct) {
+                existingProduct.quantity += quantity;
+            } else {
+                cart.push({ ...selectedProduct, quantity });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${selectedProduct.name} (${quantity}g) has been added to your cart.`);
+            closeModal();
+        }
+
+        function renderProducts() {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = '';
+
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.onclick = () => openModal(product.id);
+
+                const productImage = document.createElement('img');
+                productImage.src = product.image;
+                productImage.alt = product.name;
+
+                const productName = document.createElement('h3');
+                productName.textContent = product.name;
+
+                const productDescription = document.createElement('p');
+                productDescription.textContent = product.description;
+
+                const productPrice = document.createElement('p');
+                productPrice.innerHTML = `<strong>Price:</strong> ₹${product.price.toFixed(2)}`;
+
+                const addToCartButton = document.createElement('button');
+                addToCartButton.textContent = 'Add to Cart';
+                addToCartButton.onclick = (event) => {
+                    event.stopPropagation();
+                    openModal(product.id);
+                };
+
+                productCard.appendChild(productImage);
+                productCard.appendChild(productName);
+                productCard.appendChild(productDescription);
+                productCard.appendChild(productPrice);
+                productCard.appendChild(addToCartButton);
+
+                productList.appendChild(productCard);
+            });
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>

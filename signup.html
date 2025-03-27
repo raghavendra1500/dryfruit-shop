@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Dry Fruit Shop</title>
+    <link rel="stylesheet" href="css/style1.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fffdd0; /* Light cream background */
+            color: #333;
+        }
+
+        header {
+            background-color: #d2691e; /* Warm brownish-orange */
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        main h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #d2691e;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        input:focus {
+            border-color: #d2691e;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #d2691e; /* Warm brownish-orange */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #b35916; /* Slightly darker shade for hover */
+        }
+
+        .g_id_signin {
+            margin: 10px 0;
+        }
+
+        p {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+
+        p a {
+            color: #d2691e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #d2691e; /* Warm brownish-orange */
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dry Fruit Shop</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="product.html">Products</a>
+            <a href="cart.html">Cart</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Sign Up</h2>
+        <form action="register.php" method="POST" onsubmit="return validateForm()">
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required placeholder="Enter 10-digit mobile number">
+            
+            <label for="otp">Enter OTP:</label>
+            <input type="text" id="otp" name="otp" placeholder="Enter OTP" required>
+            <button type="button" onclick="sendOTP()">Send OTP</button>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email">
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required placeholder="Enter a strong password">
+            
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" name="confirm-password" required placeholder="Re-enter your password">
+            
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <p>Or sign up using:</p>
+        <div id="g_id_onload"
+             data-client_id="YOUR_GOOGLE_CLIENT_ID"
+             data-context="signup"
+             data-ux_mode="popup"
+             data-callback="handleCredentialResponse">
+        </div>
+        <div class="g_id_signin" data-type="standard"></div>
+
+        <p>Already have an account? <a href="login.html">Log in here</a>.</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Dry Fruit Shop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to send OTP
+        function sendOTP() {
+            const mobile = document.getElementById('mobile').value;
+            if (mobile.match(/^[0-9]{10}$/)) {
+                fetch('send_otp.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `mobile=${mobile}`
+                })
+                .then(response => response.text())
+                .then(data => alert(data))
+                .catch(error => console.error('Error:', error));
+            } else {
+                alert('Please enter a valid 10-digit mobile number.');
+            }
+        }
+
+        // Google Sign-In callback
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            fetch('google_signin.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: response.credential })
+            })
+            .then(res => res.text())
+            .then(data => alert(data))
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Form validation
+        function validateForm() {
+            const mobile = document.getElementById('mobile').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Validate mobile number
+            if (!mobile.match(/^[0-9]{10}$/)) {
+                alert('Please enter a valid 10-digit mobile number.');
+                return false;
+            }
+
+            // Validate email
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!email.match(emailPattern)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+
+            // Validate password
+            const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=]).{8,}$/;
+            if (!password.match(passwordPattern)) {
+                alert('Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.');
+                return false;
+            }
+
+            // Confirm password
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

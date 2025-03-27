@@ -1,42 +1,15 @@
-// Get product ID from URL
-const urlParams = new URLSearchParams(window.location.search);
-const productId = urlParams.get('id');
+async function loadProducts() {
+    const res = await fetch("http://localhost:3000/products");
+    const products = await res.json();
 
-// Find product details
-const product = products.find(p => p.id == productId);
-if (product) {
-    document.getElementById("product-name").textContent = product.name;
-    document.getElementById("product-image").src = product.image;
-    document.getElementById("product-description").textContent = product.description;
-    document.getElementById("product-price").textContent = product.price;
-    document.getElementById("product-stock").textContent = product.stock;
+    const productList = document.getElementById("product-list");
+    productList.innerHTML = "";
+
+    products.forEach(product => {
+        const div = document.createElement("div");
+        div.innerHTML = `<h3>${product.name}</h3><p>$${product.price}</p><img src="${product.image}" width="100">`;
+        productList.appendChild(div);
+    });
 }
 
-// Cart System
-let cart = [];
-function addToCartFromDetails() {
-    let selectedQuantity = document.querySelector('input[name="quantity"]:checked');
-    if (!selectedQuantity) {
-        alert("Please select a quantity.");
-        return;
-    }
-
-    let quantity = parseInt(selectedQuantity.value);
-
-    let cartItem = cart.find(item => item.id === product.id);
-    if (cartItem) {
-        alert("You have already added this item with a selected quantity.");
-        return;
-    }
-
-    let freezeTime = new Date().getTime() + 3 * 60 * 60 * 1000; // 3 hours freeze
-    cart.push({ ...product, quantity: quantity, freezeUntil: freezeTime });
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Item added to cart!");
-}
-
-// Go back to Homepage
-function goBack() {
-    window.location.href = "index.html";
-}
+loadProducts();
