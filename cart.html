@@ -171,7 +171,7 @@
             cartSummary.style.display = 'block'; // Show summary if cart is not empty
 
             cart.forEach((item, index) => {
-                const total = item.quantity * item.price;
+                const total = item.quantity *( item.price/1000);
                 subtotal += total;
 
                 cartItems.innerHTML += `
