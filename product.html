@@ -173,7 +173,7 @@
 </head>
 <body>
     <header>
-        <h1>Dry Fruit Shop</h1>
+        <h1>Sri Nidhi Dry Fruit Shop</h1>
         <nav>
             <a href="index.html">Home</a>
             <a href="product.html">Products</a>
@@ -196,6 +196,7 @@
             <img id="modal-product-image" src="" alt="" width="150">
             <p id="modal-product-description"></p>
             <p><strong>Price:</strong> ₹<span id="modal-product-price"></span></p>
+            <p id="modal-product-stock"></p>
             <label for="quantity-select">Select Quantity:</label>
             <select id="quantity-select">
                 <option value="200">200g</option>
@@ -211,32 +212,32 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Dry Fruit Shop. All rights reserved.</p>
+        <p>&copy; 2025  Sri Nidhi Dry Fruit Shop. All rights reserved.</p>
     </footer>
 
     <script>
         const products = [
-            { id: 1, name: "Walnut", category: "nuts", price: 100, stock: 50, image: "images/wall nut.webp", description: "Rich in Omega-3, helps in brain function and heart health." },
-            { id: 2, name: "Almond", category: "nuts", price: 200, stock: 60, image: "images/almond.webp", description: "Loaded with Vitamin E, great for skin, hair, and energy." },
-            { id: 3, name: "Cashew (Kaju)", category: "nuts", price: 220, stock: 40, image: "images/cashew.webp", description: "Creamy and delicious, a great source of protein and iron." },
-            { id: 4, name: "Pista (Plain)", category: "nuts", price: 210, stock: 50, image: "images/pista plain.webp", description: "Low in calories, high in antioxidants, good for heart health." },
-            { id: 5, name: "Pista (Roasted/Salted)", category: "nuts", price: 230, stock: 30, image: "images/pista plain.webp", description: "Crunchy and salty, a great snack full of nutrition." },
-            { id: 6, name: "Anjeera (Figs)", category: "raisins", price: 180, stock: 25, image: "images/anjeer.webp", description: "High in fiber, helps in digestion and weight loss." },
-            { id: 7, name: "Kishmish (Green)", category: "raisins", price: 140, stock: 45, image: "images/green kishmish.webp", description: "Sweet and nutritious, rich in iron and good for digestion." },
-            { id: 8, name: "Kishmish (Yellow)", category: "raisins", price: 135, stock: 40, image: "images/yellow kishmish.png", description: "Boosts energy, supports healthy skin and hair." },
-            { id: 9, name: "Black Grapes (Raisina)", category: "raisins", price: 150, stock: 35, image: "images/black grapes.webp", description: "Rich in antioxidants, good for blood circulation and heart." },
-            { id: 10, name: "Dates", category: "dates", price: 100, stock: 60, image: "images/dates.webp", description: "Rich in natural sugar and fiber, boosts instant energy." },
-            { id: 11, name: "Dry Dates", category: "dates", price: 120, stock: 50, image: "images/dry-dates.webp", description: "Strengthens bones and improves digestion." },
-            { id: 12, name: "Dry Dates (Black)", category: "dates", price: 130, stock: 40, image: "images/black dry dates.webp", description: "Rich in iron, great for boosting immunity and energy." },
-            { id: 13, name: "Albukara", category: "raisins", price: 120, stock: 30, image: "images/albhukara.webp", description: "Dried apricots packed with Vitamin A, good for eyesight." },
-            { id: 14, name: "Apricots (Kurbani/Jardalu)", category: "raisins", price: 140, stock: 35, image: "images/apricots.jpg", description: "Rich in antioxidants, improves skin and digestion." },
-            { id: 15, name: "Amla (Sweet & Salt)", category: "seeds", price: 90, stock: 40, image: "images/amla.png", description: "Superfood for immunity, digestion, and glowing skin." },
-            { id: 16, name: "Prunes (California)", category: "raisins", price: 180, stock: 25, image: "images/prunes.webp", description: "Great for digestion and bone strength." },
-            { id: 17, name: "Sweet Tamarind", category: "seeds", price: 100, stock: 50, image: "images/sweet tamarind.avif", description: "Rich in Vitamin C, helps in digestion and weight loss." },
-            { id: 18, name: "Chilgoja", category: "seeds", price: 190, stock: 20, image: "images/chilgoja.webp", description: "Pine nuts, good for brain and heart health." },
-            { id: 19, name: "Chiranji (Saarapappu)", category: "seeds", price: 160, stock: 30, image: "images/chiranji.jpg", description: "Used in sweets, rich in vitamins and proteins." },
-            { id: 20, name: "Black Dates", category: "dates", price: 110, stock: 30, image: "images/black dates.webp", description: "Natural sweetener, helps in digestion and energy boost." }
-        ];
+                { id: 1, name: "Walnut", category: "nuts", price: 100, stock: 50000, image: "images/wall nut.webp", description: "Rich in Omega-3, helps in brain function and heart health." },
+                { id: 2, name: "Almond", category: "nuts", price: 200, stock: 60000, image: "images/almond.webp", description: "Loaded with Vitamin E, great for skin, hair, and energy." },
+                { id: 3, name: "Cashew (Kaju)", category: "nuts", price: 220, stock: 40000, image: "images/cashew.webp", description: "Creamy and delicious, a great source of protein and iron." },
+                { id: 4, name: "Pista (Plain)", category: "nuts", price: 210, stock: 50000, image: "images/pista plain.webp", description: "Low in calories, high in antioxidants, good for heart health." },
+                { id: 5, name: "Pista (Roasted/Salted)", category: "nuts", price: 230, stock: 30000, image: "images/pista salted.jpg", description: "Crunchy and salty, a great snack full of nutrition." },
+                { id: 6, name: "Anjeera (Figs)", category: "raisins", price: 180, stock: 25000, image: "images/anjeer.webp", description: "High in fiber, helps in digestion and weight loss." },
+                { id: 7, name: "Kishmish (Green)", category: "raisins", price: 140, stock: 45000, image: "images/green kishmish.webp", description: "Sweet and nutritious, rich in iron and good for digestion." },
+                { id: 8, name: "Kishmish (Yellow)", category: "raisins", price: 135, stock: 40000, image: "images/yellow kishmish.png", description: "Boosts energy, supports healthy skin and hair." },
+                { id: 9, name: "Black Grapes (Raisina)", category: "raisins", price: 150, stock: 35000, image: "images/black grapes.webp", description: "Rich in antioxidants, good for blood circulation and heart." },
+                { id: 10, name: "Dates", category: "dates", price: 100, stock: 60000, image: "images/dates.webp", description: "Rich in natural sugar and fiber, boosts instant energy." },
+                { id: 11, name: "Dry Dates", category: "dates", price: 120, stock: 50000, image: "images/dry-dates.webp", description: "Strengthens bones and improves digestion." },
+                { id: 12, name: "Dry Dates (Black)", category: "dates", price: 130, stock: 40000, image: "images/black dry dates.webp", description: "Rich in iron, great for boosting immunity and energy." },
+                { id: 13, name: "Albukara", category: "raisins", price: 120, stock: 30000, image: "images/albhukara.webp", description: "Dried apricots packed with Vitamin A, good for eyesight." },
+                { id: 14, name: "Apricots (Kurbani/Jardalu)", category: "raisins", price: 140, stock: 35000, image: "images/apricots.jpg", description: "Rich in antioxidants, improves skin and digestion." },
+                { id: 15, name: "Amla (Sweet & Salt)", category: "seeds", price: 90, stock: 40000, image: "images/amla.png", description: "Superfood for immunity, digestion, and glowing skin." },
+                { id: 16, name: "Prunes (California)", category: "raisins", price: 180, stock: 25000, image: "images/prunes.webp", description: "Great for digestion and bone strength." },
+                { id: 17, name: "Sweet Tamarind", category: "seeds", price: 100, stock: 50000, image: "images/sweet tamarind.avif", description: "Rich in Vitamin C, helps in digestion and weight loss." },
+                { id: 18, name: "Chilgoja", category: "seeds", price: 190, stock: 20000, image: "images/chilgoja.webp", description: "Pine nuts, good for brain and heart health." },
+                { id: 19, name: "Chiranji (Saarapappu)", category: "seeds", price: 160, stock: 30000, image: "images/chiranji.jpg", description: "Used in sweets, rich in vitamins and proteins." },
+                { id: 20, name: "Black Dates", category: "dates", price: 110, stock: 30000, image: "images/black dates.webp", description: "Natural sweetener, helps in digestion and energy boost." }
+            ];
 
         let selectedProduct = null;
 
@@ -249,6 +250,7 @@
                 document.getElementById('modal-product-image').alt = product.name;
                 document.getElementById('modal-product-description').textContent = product.description;
                 document.getElementById('modal-product-price').textContent = product.price.toFixed(2);
+                document.getElementById('modal-product-stock').textContent = `Available Stock: ${product.stock}g (${(product.stock / 1000).toFixed(2)} kg)`;
                 document.getElementById('product-modal').style.display = 'flex';
             }
         }
@@ -265,18 +267,34 @@
                 return;
             }
 
+            if (quantity < 200 || quantity > 3000) {
+                alert('You can only add between 200g and 3kg.');
+                return;
+            }
+
+            if (quantity > selectedProduct.stock) {
+                alert('Not enough stock available.');
+                return;
+            }
+
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             const existingProduct = cart.find(item => item.id === selectedProduct.id);
 
             if (existingProduct) {
+                if (existingProduct.quantity + quantity > 3000) {
+                    alert('You cannot add more than 3kg of this product.');
+                    return;
+                }
                 existingProduct.quantity += quantity;
             } else {
                 cart.push({ ...selectedProduct, quantity });
             }
 
+            selectedProduct.stock -= quantity;
             localStorage.setItem('cart', JSON.stringify(cart));
             alert(`${selectedProduct.name} (${quantity}g) has been added to your cart.`);
             closeModal();
+            renderProducts(); // Update stock display
         }
 
         function renderProducts() {
@@ -301,6 +319,9 @@
                 const productPrice = document.createElement('p');
                 productPrice.innerHTML = `<strong>Price:</strong> ₹${product.price.toFixed(2)}`;
 
+                const productStock = document.createElement('p');
+                productStock.innerHTML = `<strong>Stock:</strong> ${product.stock}g (${(product.stock / 1000).toFixed(2)} kg)`;
+
                 const addToCartButton = document.createElement('button');
                 addToCartButton.textContent = 'Add to Cart';
                 addToCartButton.onclick = (event) => {
@@ -312,6 +333,7 @@
                 productCard.appendChild(productName);
                 productCard.appendChild(productDescription);
                 productCard.appendChild(productPrice);
+                productCard.appendChild(productStock);
                 productCard.appendChild(addToCartButton);
 
                 productList.appendChild(productCard);

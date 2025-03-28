@@ -6,6 +6,53 @@
     <title>Checkout - Dry Fruit Shop</title>
     <link rel="stylesheet" href="css/style1.css">
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fffdd0; /* Light cream background */
+            color: #333;
+        }
+
+        header {
+            background-color: #d2691e; /* Warm brownish-orange */
+            color: #fff;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
         .checkout-summary {
             width: 100%;
             border-collapse: collapse;
@@ -35,15 +82,17 @@
 
         .checkout-actions button {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #d2691e; /* Warm brownish-orange */
             color: #fff;
             border: none;
             cursor: pointer;
             border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
         }
 
         .checkout-actions button:hover {
-            background-color: #0056b3;
+            background-color: #b35916; /* Slightly darker shade for hover */
         }
 
         .empty-checkout {
@@ -51,6 +100,33 @@
             margin: 20px 0;
             font-size: 18px;
             color: #555;
+        }
+
+        .order-expiry {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #d2691e;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #d2691e; /* Warm brownish-orange */
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -72,9 +148,9 @@
                 <tr>
                     <th>Image</th>
                     <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
+                    <th>Price (₹/kg)</th>
+                    <th>Quantity (g)</th>
+                    <th>Total (₹)</th>
                 </tr>
             </thead>
             <tbody id="checkout-items">
@@ -87,12 +163,16 @@
         </div>
 
         <div class="checkout-actions">
-            <button onclick="confirmOrder()">Confirm Order</button>
+            <button id="confirm-order-btn" onclick="confirmOrder()">Confirm Order</button>
+        </div>
+
+        <div class="order-expiry" id="order-expiry">
+            <!-- Order expiry message will be displayed here -->
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Dry Fruit Shop. All rights reserved.</p>
+        <p>&copy; 2025 Dry Fruit Shop. All rights reserved. | <a href="contact.html">Contact Us</a></p>
     </footer>
 
     <script>
@@ -115,7 +195,7 @@
             checkoutTotal.style.display = 'block'; // Show total if cart is not empty
 
             cart.forEach(item => {
-                const itemTotal = item.quantity * item.price;
+                const itemTotal = (item.quantity / 1000) * item.price; // Calculate total based on grams
                 total += itemTotal;
 
                 checkoutItems.innerHTML += `
@@ -123,7 +203,7 @@
                         <td><img src="${item.image}" alt="${item.name}" width="50"></td>
                         <td>${item.name}</td>
                         <td>₹${item.price.toFixed(2)}</td>
-                        <td>${item.quantity}</td>
+                        <td>${item.quantity}g</td>
                         <td>₹${itemTotal.toFixed(2)}</td>
                     </tr>
                 `;
@@ -134,13 +214,31 @@
 
         // Function to confirm the order
         function confirmOrder() {
+            const freezeTime = localStorage.getItem('freezeTime');
+            const currentTime = new Date().getTime();
+
+            // Check if the freeze timer is active
+            if (freezeTime && currentTime < parseInt(freezeTime)) {
+                const remainingTime = Math.ceil((parseInt(freezeTime) - currentTime) / (1000 * 60)); // Remaining time in minutes
+                alert(`Your order is placed and Purchase it from the store within 3 hours of time and remaining ${remainingTime} minutes`);
+                return;
+            }
+
             if (cart.length === 0) {
                 alert('Your cart is empty. Please add items before confirming your order.');
                 return;
             }
 
             // Simulate order confirmation
-            alert('Thank you for your order! Your order has been placed successfully.');
+            alert('Thank you for your order! Your order has been placed successfully. This order will expire in 3 hours.');
+
+            // Set a 3-hour freeze timer
+            const threeHoursLater = currentTime + 3 * 60 * 60 * 1000; // 3 hours in milliseconds
+            localStorage.setItem('freezeTime', threeHoursLater);
+
+            // Display order expiry message
+            const expiryMessage = document.getElementById('order-expiry');
+            expiryMessage.textContent = 'Your order will expire in 3 hours.';
 
             // Clear the cart and redirect to the home page
             localStorage.removeItem('cart');

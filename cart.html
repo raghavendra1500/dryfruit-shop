@@ -110,6 +110,16 @@
             margin-top: 20px;
             font-size: 14px;
         }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -148,7 +158,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Dry Fruit Shop. All rights reserved.</p>
+        <p>&copy; 2025 Dry Fruit Shop. All rights reserved. | <a href="contact.html">Contact Us</a></p>
     </footer>
 
     <script>
@@ -171,7 +181,7 @@
             cartSummary.style.display = 'block'; // Show summary if cart is not empty
 
             cart.forEach((item, index) => {
-                const total = item.quantity *( item.price/1000);
+                const total = item.quantity * (item.price / 1000); // Calculate total for the item
                 subtotal += total;
 
                 cartItems.innerHTML += `
@@ -180,7 +190,7 @@
                         <td>${item.name}</td>
                         <td>₹${item.price.toFixed(2)}</td>
                         <td>
-                            <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
+                            <input type="number" value="${item.quantity}" min="200" max="3000" step="50" onchange="updateQuantity(${index}, this.value)">
                         </td>
                         <td>₹${total.toFixed(2)}</td>
                         <td><button onclick="removeItem(${index})">Remove</button></td>
@@ -194,21 +204,24 @@
         // Function to update quantity
         function updateQuantity(index, quantity) {
             quantity = parseInt(quantity);
-            if (isNaN(quantity) || quantity < 1) {
-                alert('Quantity must be at least 1.');
-                renderCart();
+
+            // Validate quantity (minimum 200g, maximum 3000g)
+            if (isNaN(quantity) || quantity < 200 || quantity > 3000) {
+                alert('Quantity must be between 200g and 3kg (3000g).');
+                renderCart(); // Re-render the cart to reset invalid input
                 return;
             }
-            cart[index].quantity = quantity;
-            saveCart();
-            renderCart();
+
+            cart[index].quantity = quantity; // Update the quantity
+            saveCart(); // Save the updated cart to localStorage
+            renderCart(); // Re-render the cart
         }
 
         // Function to remove an item from the cart
         function removeItem(index) {
-            cart.splice(index, 1);
-            saveCart();
-            renderCart();
+            cart.splice(index, 1); // Remove the item from the cart
+            saveCart(); // Save the updated cart to localStorage
+            renderCart(); // Re-render the cart
         }
 
         // Function to save the cart to localStorage
@@ -222,7 +235,7 @@
                 alert('Your cart is empty. Please add items before proceeding to checkout.');
                 return;
             }
-            window.location.href = 'checkout.html';
+            window.location.href = 'checkout.html'; // Redirect to the checkout page
         }
 
         // Render the cart on page load
