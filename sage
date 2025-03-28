@@ -1,0 +1,29 @@
+[33mcommit fd08495609e3965935c8bf171c793cd04c7f167c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Siddartha-balla <23211a6712@bvrit.ac.in>
+Date:   Thu Mar 27 22:26:21 2025 +0530
+
+    updated cart and login page
+
+[33mcommit 3feef35996f1b3ae2afb73274f4aa8d423840b86[m
+Author: Your Name <your-email@example.com>
+Date:   Thu Mar 27 21:40:21 2025 +0530
+
+    Initial commit for Dry Fruit Shop project
+
+[33mcommit 610fd2d2ce1c0b7c76abb3dbb13bfb597aeae321[m
+Author: Your Name <your-email@example.com>
+Date:   Thu Mar 27 14:36:20 2025 +0530
+
+    Initial commit with folder structure
+
+[33mcommit a098a4bcd813449e054f82e6d20c4810e3f863fd[m
+Author: Your Name <your-email@example.com>
+Date:   Thu Mar 27 00:31:46 2025 +0530
+
+    Updated product details page, added images, and refactored JavaScript
+
+[33mcommit f61931ba2224d7e6c5c3a2c60b2de7132c79ce19[m
+Author: Your Name <your-email@example.com>
+Date:   Wed Mar 26 23:35:39 2025 +0530
+
+    Initial project setup
