@@ -9,7 +9,7 @@ if ($conn->connect_error) {
 }
 
 foreach ($data as $item) {
-    // Check if the stock is sufficient
+    
     $stmt = $conn->prepare("SELECT stock FROM products WHERE id = ?");
     $stmt->bind_param("i", $item['id']);
     $stmt->execute();
